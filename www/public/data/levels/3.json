@@ -1,0 +1,15 @@
+[
+	{ "coords" : "e-2" },	
+	{ "coords" : "f-2" },
+	{ "coords" : "g-2" },
+	{ "coords" : "e-3", "gimmick" : "bomb" },
+	{ "coords" : "f-3" },
+	{ "coords" : "g-3" },
+	{ "coords" : "e-4" },
+	{ "coords" : "e-5" },
+	{ "coords" : "f-5" },
+	{ "coords" : "g-5" },
+	{ "coords" : "e-6" },
+	{ "coords" : "f-6", "gimmick" : "viagra" },
+	{ "coords" : "g-6" }
+]

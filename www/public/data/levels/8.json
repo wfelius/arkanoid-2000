@@ -1,0 +1,12 @@
+[
+	{ "coords" : "e-2", "gimmick" : "giant-ball" },	
+	{ "coords" : "f-2" },
+	{ "coords" : "f-4" },
+	{ "coords" : "g-2" },
+	{ "coords" : "e-3", "gimmick" : "two-balls" },
+	{ "coords" : "e-4" },
+	{ "coords" : "e-5" },
+	{ "coords" : "e-6" },
+	{ "coords" : "f-6" },
+	{ "coords" : "g-6" }
+]

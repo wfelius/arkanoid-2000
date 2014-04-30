@@ -1,0 +1,17 @@
+{
+    "name" : "GruntPackage",
+    "version" : "0.1.0",
+    "author" : "Wouter Felius",
+    "private" : true,
+
+    "devDependencies" : {
+        "grunt" :  						"~0.4.0",
+        "grunt-contrib-sass":           "*",
+        "grunt-contrib-uglify":         "*",
+        "grunt-contrib-cssmin":         "*",
+        "grunt-contrib-watch":          "*",
+        "grunt-contrib-imagemin":       "*",
+        "grunt-cssc":                   "*",
+        "matchdep":                     "*"
+    } 
+}

@@ -1,0 +1,17 @@
+[
+	{	
+		"id" : "welcome",
+		"title" : "Welcome",
+		"content" : "<p>You have found the most awesome game in the world, Arkanoid 2000.<br/><br/>Go and kick some balls dude!</p>",
+		"button-label" : "start",
+		"button-class" : "button-start"
+	},
+
+	{	
+		"id" : "game-over",
+		"title" : "Game Over",
+		"content" : "<p>You suck!</p>",
+		"button-label" : "Try Again",
+		"button-class" : "button-start"
+	}
+]

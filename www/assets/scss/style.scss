@@ -1,0 +1,255 @@
+@import 'includes/normalize';
+@import 'includes/fonts';
+@import 'includes/bourbon/bourbon';
+
+/* Colors and sizes */
+$header-height: 60px;
+$footer-height: 30px;
+$color-turquoise: #5f878a;
+$color-turquoise-dark: #39676b;
+$color-turquoise-darkest: #2c575a;
+
+$color-bordeaux: #cf3920;
+$color-bordeaux-dark: #a42d1a;
+$color-bordeaux-darkest: #7d1807;
+
+
+
+* {
+	@include box-sizing(border-box);
+}
+
+p {
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 20px;
+	margin-bottom: 20px;
+}
+
+h1,h2,h3 {
+	font-family: 'pixel-font';
+	color:$color-turquoise;
+}
+
+html,body {
+	height: 100%;
+}
+
+body {
+	color: #ccc;
+	font-family: Verdana, Arial, 'sans-serif';
+}
+
+#container {
+	min-height:550px;
+	height:100%;
+	position: relative;
+	padding-top: $header-height;
+	padding-bottom: $footer-height;
+	background: #142c38 url(../img/bg_container.jpg) center center no-repeat fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+ 	-o-background-size: cover;
+	background-size: cover;
+}
+
+#header-main,
+#footer-main {
+	width: 100%;
+	position: absolute;
+
+	.background {
+		height: 100%;
+		width: 100%;
+		background: black;
+		position: absolute;
+		z-index: 0;
+		opacity:.8;
+		filter:Alpha(opacity=80);
+	}
+
+	h1,span {
+		position: relative;
+		z-index: 1;
+	}
+
+}
+
+#header-main {
+	height: $header-height;
+	border-bottom: 1px solid #333;
+	top: 0;
+	h1 {
+		text-align: center;
+		font-size: 18px;
+		line-height: 34px;
+		text-transform: uppercase;
+		color: white;
+	}
+
+	#lives {
+		position:absolute;
+		right: 16px;
+		top: 22px;
+		font-size: 14px;
+		text-transform: uppercase;
+		color: $color-turquoise;
+		font-family: 'pixel-font';
+
+		#lives-num {
+			color: $color-bordeaux!important;
+		}
+	}
+}
+
+#footer-main {
+	height: $footer-height;
+	text-align: center;
+	color: #999;
+	line-height: $footer-height;
+	font-size: 10px;
+	bottom: 0;
+	border-top: 1px solid #333;
+}
+
+#content-main {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+#grid {
+	width: 100%;
+	.grid-item {
+		width: 9.09090909%;
+		height: 40px;
+		float:left;
+		padding: 1px;
+	}
+}
+
+.block {
+	width: 100%;
+	height: 100%;
+	background: $color-turquoise;
+	opacity:.6;
+	filter:Alpha(opacity=60);
+}
+
+#panel {
+	$height: 450px;
+	height: $height;
+	width: 300px;
+	padding: 20px;
+	margin: -($height/2) auto 0;
+	position: relative;
+	top: 50%;
+	text-align: center;
+	box-shadow: 0 0 30px 5px rgba(0,0,0,.8);
+	@include transition(all .3s ease-in-out);
+
+	&.hidden {
+		top: -($height + 50);
+		opacity:0;
+		filter:Alpha(opacity=0);
+	}
+	
+	#background {
+		width: 100%;
+		height: 100%;
+		background: black;
+		border: 1px solid $color-turquoise;
+		position: absolute;
+		top:0;
+		left:0;
+		z-index: 0;
+		opacity:.8;
+		filter:Alpha(opacity=80);
+		@include border-top-radius(3px);
+		@include border-bottom-radius(3px);
+		@include border-left-radius(3px);
+		@include border-right-radius(3px);
+	}
+
+	.content,h1,button {
+		position: relative;
+		z-index: 2;
+	}
+
+	button {
+		@include button(simple, $color-bordeaux);
+		bottom: 120px;
+		font-family: 'pixel-font';
+
+		&:focus {
+			outline:none;
+		}
+	}
+}
+
+#pad {
+	$width: 12%;
+	$height: 25px;
+	width: $width;
+	height: $height + 1;
+	background: $color-bordeaux;
+	position: absolute;
+	bottom: 40px;
+	left: 50% - ($width/2);
+	border: 1px solid $color-bordeaux-darkest;
+	box-shadow: 0 0 15px 5px rgba(255,153,153,.5);
+	display:none;
+	@include border-top-radius($height);
+	@include border-bottom-radius($height);
+	@include border-left-radius($height);
+	@include border-right-radius($height);
+	@include transition(all .1s ease-in-out);
+	@include background-image(linear-gradient($color-bordeaux 0, $color-bordeaux-dark 50%, transparent 100%));
+
+	&:before,
+	&:after {
+		content: "";
+		width: 1px;
+		height: $height;
+		position: absolute;
+		background: $color-bordeaux-darkest;
+	}
+
+	&:before {
+		left: 20%;
+	}
+
+	&:after {
+		right: 20%;
+	}
+}
+
+#ball-1,
+#ball-2,
+#ball-3 {
+	$size: 15px;
+	width: $size;
+	height: $size;
+	background: white;
+	-moz-border-radius: $size;
+	-webkit-border-radius: $size;
+	border-radius: $size;
+	position: absolute;
+	bottom: 66px;
+	left: 49%;
+}
+
+
+/* ==== HELPER CLASSES ==== */
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
