@@ -95,6 +95,7 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	start_loop: function(){
+		// TODO: build in requestAnimationFrame!!!
 		app.interval = setInterval(app.loop, 16);
 	},
 
