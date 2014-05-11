@@ -147,7 +147,7 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	execute_gimmick: function() {
-		// TODO
+		// TODO: gimicks era st with classes on the blocks
 	},
 
 	decrease_lives: function(){
