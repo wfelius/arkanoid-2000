@@ -1,4 +1,4 @@
-var UserData = Backbone.Model.extend({
+var UserModel = Backbone.Model.extend({
 	defaults : {
 		currentLevel: 1,
 		lives: 5,

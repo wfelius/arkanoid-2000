@@ -50,18 +50,18 @@
         <script src="js/libs/backbone-min.js"></script>
         <script src="js/libs/handlebars-v1.3.0.min.js"></script>
         <!-- backbone -->
-        <script src="js/models/UserData.js"></script>
+        <script src="js/models/UserModel.js"></script>
         <script src="js/models/GridItem.js"></script>
-        <script src="js/models/LevelBlock.js"></script>
+        <script src="js/models/BlockModel.js"></script>
         <script src="js/models/PanelModel.js"></script>
         <script src="js/models/PadModel.js"></script>
         <script src="js/models/BallModel.js"></script>
-        <script src="js/collections/GridItems.js"></script>
+        <script src="js/collections/GridCollection.js"></script>
         <script src="js/collections/PanelCollection.js"></script>
-        <script src="js/collections/LevelBlocks.js"></script>
+        <script src="js/collections/BlockCollection.js"></script>
         <script src="js/views/GridItemView.js"></script>
         <script src="js/views/GridView.js"></script>
-        <script src="js/views/LevelBlockView.js"></script>
+        <script src="js/views/BlockView.js"></script>
         <script src="js/views/LevelView.js"></script>
         <script src="js/views/PanelView.js"></script>
         <script src="js/views/PadView.js"></script>

@@ -1,3 +1,4 @@
 var PanelCollection = Backbone.Collection.extend({
-	model: PanelModel
+	model: PanelModel,
+	url: 'data/panels.json'
 });

@@ -1,13 +1,11 @@
 var AppRouter = Backbone.Router.extend({
 
 	routes : {
-		'game-over/' 	: 'game_over',
-		'level/:level'	: 'init_level',
+		// 'game-over/' 	: 'game_over',
+		// 'level/:level'	: 'init_level',
 	},
 
 	initialize : function() {
-
-		console.log('=== app.initialize');
 
 		// set app vars
 		this.minY;
@@ -15,33 +13,31 @@ var AppRouter = Backbone.Router.extend({
 		this.minX;
 		this.maxX;
 		this.padY;
+		this.blockCount = 0;
 		this.interval = -1;
 		this.lives_counter = $('#lives-num');
 		this.container = $('#content-main');
-		this.userData = new UserData();
+		this.userdata = new UserModel();
 
 		// create grid
 		$.getJSON('data/grid.json').done(function(data){
 			console.log('=== fetched grid data for grid collection');
-			this.gridItems = new GridItems(data);
-			this.gridView = new GridView({ collection : this.gridItems });
+			this.gridCollection = new GridCollection(data);
+			this.gridView = new GridView({ collection : this.gridCollection });
 			this.gridView.render();
 		}); 
-
-		// init panel
-		this.panelCollection = new PanelCollection();
-		this.panel = new PanelView();
 
 		// get panel collection
 		$.getJSON('data/panels.json').done(function(data){
 			console.log('=== fetched panel data for panel collection');
-			app.panelCollection.set(data);
+			app.panelCollection = new PanelCollection(data);
+			app.panel = new PanelView({ collection: app.panelCollection });
 			app.panel.show('welcome');
 		});
 
 		// create level
-		this.levelBlocks = new LevelBlocks();
-		this.level = new LevelView({ collection : this.levelBlocks });
+		this.blockCollection = new BlockCollection();
+		this.level = new LevelView({ collection : this.blockCollection });
 
 		// create pad
 		this.padModel = new PadModel();
@@ -66,33 +62,40 @@ var AppRouter = Backbone.Router.extend({
 		app.padY = app.maxY - 40; // 40 = bottom value pad
 	},
 
-	init_level : function (_level) {
+	build_level : function (_level) {
 		// TODO: store level data locally to reference later on (game over)
 		// TODO: getJSON.fail()
-		console.log('=== init_level');
+		// hide panel if present
+		//if(!app.panel.$el.hasClass('hidden')) app.panel.close();
 
-		// hide panel is present
-		if(!app.panel.$el.hasClass('hidden')) app.panel.close();
-
-		if(app.userData.get('currentLevel') == _level) {
-			$.getJSON('data/levels/'+_level+'.json').done(function(_data){
-				app.levelBlocks.reset(_data);
-			});
-		}
+		$.getJSON('data/levels/'+_level+'.json').done(function(data){
+			app.blockCollection.reset(data);
+			app.ball.show();
+			app.pad.show();
+			app.start_loop();
+		});
 	},
 
 	start_game: function() {
 		app.init_game();
-		if (app.interval > -1) clearInterval(app.interval);
-		app.interval = setInterval(app.loop, 16);
+		//if (app.interval > -1) clearInterval(app.interval);
+		//app.interval = setInterval(app.loop, 16);
 	},
 
 	init_game: function(){
-		app.lives_counter.text(app.userData.get('lives'));
+		app.lives_counter.text(app.userdata.get('lives'));
 		app.set_bounding_box();
 		app.pad.render();
 		app.ball.render();
-		app.navigate('//level/'+app.userData.get('currentLevel'), {trigger:true});
+		app.build_level(1);
+	},
+
+	stop_loop: function(){
+		clearInterval(app.interval);
+	},
+
+	start_loop: function(){
+		app.interval = setInterval(app.loop, 16);
 	},
 
 	reset_game: function(){
@@ -100,6 +103,16 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	loop: function() {
+
+		if(app.blockCount == app.level.blocks.length) {
+			app.stop_loop();
+			app.blockCount = 0;
+			app.ball.hide();
+			app.pad.hide();
+			var currentLevel = app.userdata.get('currentLevel');
+			app.userdata.set('currentLevel', ++currentLevel);
+			app.build_level(currentLevel);
+		}
 
 	    var ballX = app.ball.model.get('ballX'),
 	    	ballY = app.ball.model.get('ballY'),
@@ -138,13 +151,12 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	decrease_lives: function(){
-		var lives = app.userData.get('lives');
+		var lives = app.userdata.get('lives');
 		console.log('levens:', lives);
 		if(lives == 0) {
 			app.game_over();	
 		} else {
-			app.userData.set('lives', --lives);
-			app.init_level();
+			app.userdata.set('lives', --lives);
 		}
 		app.lives_counter.text(lives);
 	},

@@ -1,4 +1,4 @@
-var LevelBlock = Backbone.Model.extend({
+var BlockModel = Backbone.Model.extend({
 	defaults : {
 		id : 0,
 		coords: 'a-1',

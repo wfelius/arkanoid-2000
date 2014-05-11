@@ -8,12 +8,20 @@ var PadView = Backbone.View.extend({
 	},
 
 	render: function() {
-		this.$el.removeAttr('style').css({ left : '44%' }).fadeIn(300);
+		// this.$el.removeAttr('style').css({ left : '44%' }).fadeIn(300);
+		this.$el.fadeIn(300);
+		this.reset_pad_coords();
+		return this;
+	},
+
+	reset_pad_coords: function(){
+		console.log(this.model.attributes);
 		this.model.set('padY', this.$el.position().top);
         this.model.set('padX', this.$el.position().left);
         this.model.set('padH', this.$el.height());
         this.model.set('padW', this.$el.width());
-		return this;
+		console.log(this.model.attributes);
+
 	},
 
 	keydown: function(e) {
@@ -44,7 +52,13 @@ var PadView = Backbone.View.extend({
 	},
 
 	hide: function() {
-		this.$el.fadeOut(300);
+		//this.$el.fadeOut(300);
+		this.$el.removeAttr('style');
+		this.reset_pad_coords();
+	},
+
+	show: function() {
+		this.$el.fadeIn(300);
 	},
 
 	// override remove to also unbind events

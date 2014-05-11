@@ -6,32 +6,24 @@ var BallView = Backbone.View.extend({
 
 	render : function(){
 
-		console.log('ball model', this.model);
-		console.log('render bal');
 		this.$el.appendTo(app.container);
-		console.log('ball rendered');
-		console.log('ball model', this.model);
+		this.reset_ball_coords();
+		return this;
 
+		// TODO: multiball
+		//var currBallsInGame = app.userdata.get('ballsInGame');
+		//app.userdata.set({ ballsInGame : ++currBallsInGame });
+	},
 
+	reset_ball_coords: function() {
 		this.model.set('ballY', this.$el.position().top);
         this.model.set('ballX', this.$el.position().left);
         this.model.set('prevBallPos.x', this.$el.position().top);
         this.model.set('prevBallPos.y', this.$el.position().left);
         this.model.set('ballRadius', this.$el.width());
-
-		console.log('ball model', this.model);
-
-
-		var currBallsInGame = app.userData.get('ballsInGame');
-		app.userData.set({ ballsInGame : ++currBallsInGame });
-		this.go();
+        this.model.set('ballDirectionX', 1);
+        this.model.set('ballDirectionY', -1);
 	},
-
-	go: function(){
-		console.log('=== go ball go!');
-		console.log('balls in game: ', app.userData.get('ballsInGame'));
-	},
-
 
 	collide_with_window: function() {
 
@@ -67,7 +59,7 @@ var BallView = Backbone.View.extend({
 			ballY = this.model.get('ballY'),
 			ballRadius = this.model.get('ballRadius'),
 			padX = app.pad.model.get('padX'),
-			padW = app.pad.model.get('padW');
+			padW = app.pad.model.get('padW'),
 			padY = app.pad.model.get('padY');
 
 	    if (ballX + ballRadius < padX || ballX - ballRadius > padX + padW)
@@ -99,14 +91,20 @@ var BallView = Backbone.View.extend({
 	},
 
 	hide: function() {
-		this.$el.fadeOut(300);
+		//this.$el.fadeOut(300);
+		this.$el.removeAttr('style');
+		this.reset_ball_coords();
+	},
+
+	show: function() {
+		this.$el.fadeIn(300);
 	},
 
 	// destroy added gimmick balls
 	destroy : function() {
 		if(this.$el.id != 'ball-1' ) { // ball one will never get 
-			var currBallsInGame = app.userData.get('ballsInGame');
-			app.userData.set({ ballsInGame : --currBallsInGame });
+			var currBallsInGame = app.userdata.get('ballsInGame');
+			app.userdata.set({ ballsInGame : --currBallsInGame });
 			this.remove(); // commit suicide! :)
 		}
 	}

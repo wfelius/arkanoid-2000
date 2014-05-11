@@ -30,7 +30,7 @@ var PanelView = Backbone.View.extend({
 	},
 
 	show: function(_id){
-		this.model = app.panelCollection.get(_id);
+		this.model = this.collection.get(_id);
 		this.render();
 		this.$el.removeClass('hidden');
 	},

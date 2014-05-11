@@ -1,6 +1,5 @@
-var LevelBlockView = Backbone.View.extend({
+var BlockView = Backbone.View.extend({
 	tagName : 'div',
-
 
 	initialize : function() {
 		this.render();
@@ -22,10 +21,9 @@ var LevelBlockView = Backbone.View.extend({
 			ballY = app.ball.model.get('ballY'),
 			ballRadius = app.ball.model.get('ballRadius'),
 			blockX = this.model.get('blockX'),
-			blockY = this.model.get('blockY');
-			blockW = this.model.get('blockW');
+			blockY = this.model.get('blockY'),
+			blockW = this.model.get('blockW'),
 			blockH = this.model.get('blockH');
-
 
 		// Collision
 		if (ballX + ballRadius < blockX || ballX - ballRadius > blockX + blockW)
@@ -49,7 +47,8 @@ var LevelBlockView = Backbone.View.extend({
 	},
 
 	die : function() {
-		console.log('DIE!');
+		app.blockCount++;
+		this.$el.remove();
 		this.remove();
 	}
 });
